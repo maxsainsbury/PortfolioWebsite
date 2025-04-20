@@ -1,0 +1,48 @@
+:root {
+    --bs-primary: #6104f8;
+    --bs-primary-rgb: 97, 4, 248;
+    --bs-btn-bg: #6104f8;
+    --bs-btn-border-color: #6104f8;
+    --bs-btn-hover-bg: #914ffc;
+    --bs-btn-hover-border-color: #6104f8;
+    --bs-btn-active-bg: #31027d;
+    --bs-btn-active-border-color: #6104f8;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+nav {
+    z-index: 5;
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer a {
+    margin: 0.5em;
+    padding: 0.3em 0.7em;
+    border: 2px transparent solid;
+    border-radius: 5px;
+}
+
+footer a:hover {
+    border: 2px solid var(--bs-primary);
+}
+
+footer a:hover > .bi {
+    color: var(--bs-primary);
+}
+
+footer .bi {
+    font-size: 1.5em;
+    cursor: pointer;
+}
