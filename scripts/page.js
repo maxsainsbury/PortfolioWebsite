@@ -16,7 +16,7 @@ const projects = async () => {
                             ${name}
                           </div>
                           <div class="card-body">
-                            <img src="${image}" class="" alt="${name} image"></img>
+                            <img src="${image}" class="" alt="${name} image">
                             <p class="card-text">${description}</p>
                             <a href="${link}" class="btn btn-primary">GitHub</a>
                           </div>
