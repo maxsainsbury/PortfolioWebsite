@@ -43,7 +43,7 @@ const loader = new GLTFLoader(manager);
 
 const loadFiles = async () => {
 
-    loader.load('../public/computer_desk.glb', function (gltf) {
+    loader.load('../public/models/computer_desk.glb', function (gltf) {
         deskLoad = true;
         const desk = gltf.scene;
         desk.position.set(0, 0, 0);
@@ -65,7 +65,7 @@ const loadFiles = async () => {
         }
     );
 
-    loader.load('../public/computer_monitor.glb', function (gltf) {
+    loader.load('../public/models/computer_monitor.glb', function (gltf) {
         monitorLoad = true;
         const monitor = gltf.scene;
         monitor.position.set(0, 0.73, 0);
@@ -77,7 +77,7 @@ const loadFiles = async () => {
 
     });
 
-    await loader.load('../public/computer.glb', function (gltf) {
+    await loader.load('../public/models/computer.glb', function (gltf) {
         computerLoad = true;
         const computer = gltf.scene;
         computer.position.set(-0.68, 0.90, 0.2);
@@ -89,7 +89,7 @@ const loadFiles = async () => {
 
     });
 
-    loader.load('../public/desk_chair.glb', function (gltf) {
+    loader.load('../public/models/desk_chair.glb', function (gltf) {
         chairLoad = true;
         const chair = gltf.scene;
         chair.position.set(0.5, -0.05, 0.95);
@@ -105,9 +105,9 @@ const loadFiles = async () => {
 
 loadFiles();
 
-camera.position.z = 3;
-camera.position.y = 0.7;
-camera.rotation.x = 0;
+camera.position.z = 2.5;
+camera.position.y = 1.2;
+camera.lookAt(0,0.5,0);
 
 function animate() {
     renderer.render( scene, camera );

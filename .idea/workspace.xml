@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="designed basic navbar and footer">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/credits.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/computer.glb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/computer_desk.glb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/computer_monitor.glb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/desk_chair.glb" afterDir="false" />
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added desk setup to three.js file, and a basic loading screen">
+      <change afterPath="$PROJECT_DIR$/public/icons/spinner.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/computer.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/computer.glb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/computer_desk.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/computer_desk.glb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/computer_monitor.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/computer_monitor.glb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/desk_chair.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/desk_chair.glb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/three.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/three.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +55,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "maxDev",
-    "last_opened_file_path": "/home/max/Documents/Portfolio/public",
+    "last_opened_file_path": "/home/max/Documents/Portfolio/public/icons",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
@@ -73,6 +71,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/icons" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
@@ -101,6 +100,7 @@
       <workItem from="1745119266229" duration="5217000" />
       <workItem from="1745137016274" duration="1119000" />
       <workItem from="1745163945493" duration="3345000" />
+      <workItem from="1745219426639" duration="1150000" />
     </task>
     <task id="LOCAL-00001" summary="Built basic structure of files and basic html structure">
       <option name="closed" value="true" />
@@ -110,7 +110,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745105935384</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added desk setup to three.js file, and a basic loading screen">
+      <option name="closed" value="true" />
+      <created>1745216585712</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745216585712</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +127,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Built basic structure of files and basic html structure" />
     <MESSAGE value="added Threejs and setup basic Threejs structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="added Threejs and setup basic Threejs structure" />
+    <MESSAGE value="added desk setup to three.js file, and a basic loading screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="added desk setup to three.js file, and a basic loading screen" />
   </component>
 </project>

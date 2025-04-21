@@ -41,6 +41,11 @@ canvas {
     z-index: 2;
 }
 
+#loading img {
+    height: 7em;
+    width: 7em;
+}
+
 footer {
     width: 100%;
     position: absolute;
