@@ -6,6 +6,7 @@ const container = $('#hero');
 let width = container.width();
 let height = container.height();
 let white = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+let gray = new THREE.MeshBasicMaterial( { color: 0x808080 } );
 let chairLoad = false;
 let deskLoad = false;
 let monitorLoad = false;
@@ -18,6 +19,12 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
 container.append( renderer.domElement );
 
+const geometry = new THREE.PlaneGeometry( 0.67, 0.36 );
+const material = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.DoubleSide} );
+const plane = new THREE.Mesh( geometry, material );
+plane.position.set(0,1.06,0);
+scene.add( plane );
+
 const manager = new THREE.LoadingManager();
 manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
     console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
@@ -28,6 +35,7 @@ manager.onLoad = function ( ) {
     loading.fadeOut(400, () => {
         loading.remove();
     });
+    projects();
     console.log( 'Loading complete!');
 };
 
@@ -48,7 +56,7 @@ const loadFiles = async () => {
         const desk = gltf.scene;
         desk.position.set(0, 0, 0);
         desk.traverse((o) => {
-            if (o.isMesh) o.material = white;
+            if (o.isMesh) o.material = gray;
         });
         scene.add(desk);
 
@@ -68,7 +76,7 @@ const loadFiles = async () => {
     loader.load('../public/models/computer_monitor.glb', function (gltf) {
         monitorLoad = true;
         const monitor = gltf.scene;
-        monitor.position.set(0, 0.73, 0);
+        monitor.position.set(0, 0.74, 0);
         monitor.scale.set(0.1, 0.1, 0.1);
         monitor.traverse((o) => {
             if (o.isMesh) o.material = white;
@@ -96,7 +104,7 @@ const loadFiles = async () => {
         chair.rotation.y = -2.3;
         chair.scale.set(0.08, 0.08, 0.08);
         chair.traverse((o) => {
-            if (o.isMesh) o.material = white;
+            if (o.isMesh) o.material = gray;
         });
         scene.add(chair);
 
@@ -108,6 +116,7 @@ loadFiles();
 camera.position.z = 2.5;
 camera.position.y = 1.2;
 camera.lookAt(0,0.5,0);
+
 
 function animate() {
     renderer.render( scene, camera );

@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added desk setup to three.js file, and a basic loading screen">
-      <change afterPath="$PROJECT_DIR$/public/icons/spinner.gif" afterDir="false" />
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="refactored file structure and added js file for displaying rest of page">
+      <change afterPath="$PROJECT_DIR$/public/data/projects.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/travelsystem.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/computer.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/computer.glb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/computer_desk.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/computer_desk.glb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/computer_monitor.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/computer_monitor.glb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/desk_chair.glb" beforeDir="false" afterPath="$PROJECT_DIR$/public/models/desk_chair.glb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/three.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/three.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.css" afterDir="false" />
     </list>
@@ -64,7 +62,7 @@
     "node.js.selected.package.stylelint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.tailwindcss",
+    "settings.editor.selected.configurable": "rsyncConfigurable",
     "ts.external.directory.path": "/home/max/JetBrains/WebStorm-242.22855.79/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -101,6 +99,7 @@
       <workItem from="1745137016274" duration="1119000" />
       <workItem from="1745163945493" duration="3345000" />
       <workItem from="1745219426639" duration="1150000" />
+      <workItem from="1745252284174" duration="746000" />
     </task>
     <task id="LOCAL-00001" summary="Built basic structure of files and basic html structure">
       <option name="closed" value="true" />

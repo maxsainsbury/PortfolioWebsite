@@ -1,0 +1,10 @@
+{
+  "projects" : [
+    {
+      "name" : "Travel System",
+      "image": "./public/images/travelsystem.png",
+      "description": "School project for software engineering process class at Camosun College. Made with a group with two other people using Java. Created to be booking software for a travel agency",
+      "link": "https://github.com/maxsainsbury/TravelSystem"
+    }
+  ]
+}
