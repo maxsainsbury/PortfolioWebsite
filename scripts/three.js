@@ -162,7 +162,7 @@ const zoomOut = () => {
     if(!lock) {
         console.log(waitCount);
         waitCount++;
-        if(waitCount >= 40) {
+        if(waitCount >= 10) {
             waitCount = 0;
             lock = true;
             if (contentDiv.css('display') === 'block') {
