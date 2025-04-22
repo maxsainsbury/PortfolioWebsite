@@ -1,5 +1,6 @@
 let content = $('#content');
 let projectsDiv = $('#projects');
+let creditDiv = $('#credits');
 
 const projects = async () => {
     let response = await fetch('../public/data/projects.json');
@@ -26,4 +27,28 @@ const projects = async () => {
     }
     projectsDiv.html(`<h1 class="w-100 text-center border-bottom border-dark">Projects</h1>`);
     projectsDiv.append(projectCards);
+}
+
+const credits = async () => {
+    let response = await fetch('../public/data/credits.json');
+    let data = await response.json();
+    let { credits } = data;
+    let creditText = ``;
+
+    for(let i = 0; i < credits.length; i++){
+        let { credit } = credits[i];
+        creditText += `<p class="text-white">${credit}</p>`
+    }
+    creditDiv.html(`<h1 class="w-100 text-center border-bottom border-light text-white">Credits</h1>`);
+    creditDiv.append(creditText);
+}
+
+const overflow = () => {
+    content.css('overflow-y', 'auto');
+}
+
+const displayContent = () => {
+    projects();
+    credits();
+    overflow();
 }

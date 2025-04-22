@@ -56,12 +56,20 @@ canvas {
 }
 
 #content {
+    height: 83.5vh;
     display: none;
     position: absolute;
     z-index: 3;
-    top: 0;
+    top: 3.6em;
     left: 0;
-    overflow-y: auto;
+}
+
+#projects {
+
+}
+
+#credits {
+    padding: 1em 0;
 }
 
 .card img {

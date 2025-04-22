@@ -13,6 +13,8 @@ let chairLoad = false;
 let deskLoad = false;
 let monitorLoad = false;
 let computerLoad = false;
+let lock = false;
+let waitCount = 0;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 60, width / height, 0.1, 1000 );
@@ -37,7 +39,7 @@ manager.onLoad = function ( ) {
     loading.fadeOut(400, () => {
         loading.remove();
     });
-    projects();
+    displayContent();
     console.log( 'Loading complete!');
 };
 
@@ -140,36 +142,54 @@ const zoomIn = () => {
     const cameraZEnd = 0.25;
     const cameraYEnd = 1.053;
     const rotationXEnd = 0;
-    gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: 1.2});
-    gsap.to(camera.rotation, {x: rotationXEnd, duration: 1.2, onComplete: () => {
-            contentDiv.fadeIn(1000);
-        }});
+    if(!lock) {
+        lock = true;
+        gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: 1.2});
+        gsap.to(camera.rotation, {
+            x: rotationXEnd, duration: 1.2, onComplete: () => {
+                contentDiv.fadeIn(1000, () => {
+                    lock = false;
+                });
+            }
+        });
+    }
 }
 
 const zoomOut = () => {
     const cameraZStart = 2.5;
     const cameraYStart = 1.2;
     const rotationXStart = -0.3;
-    if(window.scrollY === 0) {
-        if(contentDiv.css('display') === 'block') {
-            contentDiv.fadeOut(1000);
+    if(!lock) {
+        console.log(waitCount);
+        waitCount++;
+        if(waitCount >= 40) {
+            waitCount = 0;
+            lock = true;
+            if (contentDiv.css('display') === 'block') {
+                contentDiv.fadeOut(1000);
+            }
+            gsap.to(camera.position, {
+                duration: 1, onComplete: () => {
+                    gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: 1.2});
+                    gsap.to(camera.rotation, {x: rotationXStart, duration: 1.2});
+                    lock = false;
+                }
+            });
         }
     }
-    gsap.to(camera.position, {duration: 0.3, onComplete: () => {
-            gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: 1.2});
-            gsap.to(camera.rotation, {x: rotationXStart, duration: 1.2});
-    }});
 }
 
 window.addEventListener("resize", resizeContainer);
 
 addEventListener("wheel", (event) => {
-    console.log(event.deltaY);
-    if(camera.position.z > 0.3 && event.deltaY > 0 && window.scrollY === 0) {
+    if(camera.position.z > 0.3 && event.deltaY > 0) {
         zoomIn()
     }
-    else if(camera.position.z < 2.5 && event.deltaY < 0) {
+    else if(camera.position.z < 2.5 && event.deltaY < 0 && contentDiv.scrollTop() === 0) {
         zoomOut()
+    }
+    if(event.deltaY > 0) {
+        waitCount = 0;
     }
 });
 
