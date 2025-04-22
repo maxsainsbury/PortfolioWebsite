@@ -8,8 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=MedievalSharp&display=swap" rel="stylesheet">
     <title>Max Sainsbury</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" type="text/css" href="./style/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script type="importmap">
         {
           "imports": {
@@ -19,18 +18,21 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="./style/style.css">
 </head>
     <body class="bg-dark-subtle">
         <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body px-2" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="#">Max Sainsbury</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <li class="nav-item d-flex">
+                            <a class="nav-link active" aria-current="page" id="home">Home</a>
+                            <a class="nav-link" aria-current="page" id="portfolio">Portfolio</a>
                         </li>
                     </ul>
                 </div>
@@ -41,11 +43,10 @@
                 <img src="./public/icons/spinner.gif" alt="loading gif">
             </div>
         </div>
-        <div class="container-fluid" id="content">
-            <div id="spacer"></div>
-            <div id="projects"></div>
+        <div class="container-fluid bg-dark-subtle" id="content">
+            <div class="bg-dark-subtle row h-100" id="projects"></div>
         </div>
-        <footer class="border-top bg-dark">
+        <footer class="border-top bg-dark mt-2">
             <a class="link-light" href="https://github.com/maxsainsbury"><i class="bi bi-github"></i></a>
             <a class="link-light" href="https://www.linkedin.com/in/max-sainsbury-b172a4361/"><i class="bi bi-linkedin"></i></a>
         </footer>

@@ -11,17 +11,19 @@ const projects = async () => {
         let { name, description, image, link } = projects[i];
 
         projectCards += `
-                        <div class="card">
-                          <div class="card-header">
-                            ${name}
-                          </div>
-                          <div class="card-body">
-                            <img src="${image}" class="" alt="${name} image">
-                            <p class="card-text">${description}</p>
-                            <a href="${link}" class="btn btn-primary">GitHub</a>
-                          </div>
+                        <div class="col-12 col-md-6 col-xl-4 mt-3">
+                            <div class="card w-100">
+                              <div class="card-header">
+                                ${name}
+                              </div>
+                              <div class="card-body">
+                                <img src="${image}" class="" alt="${name} image">
+                                <p class="card-text">${description}</p>
+                                <a href="${link}" class="btn btn-primary">GitHub</a>
+                              </div>
+                            </div>
                         </div>`;
     }
-    projectsDiv.html(projectCards);
-    $('footer').css('bottom', '0');
+    projectsDiv.html(`<h1 class="w-100 text-center border-bottom border-dark">Projects</h1>`);
+    projectsDiv.append(projectCards);
 }

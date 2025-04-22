@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added a portfolio section to the page">
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added fonts from google fonts">
+      <change afterPath="$PROJECT_DIR$/public/images/portfolio.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Portfolio.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Portfolio.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/data/projects.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/projects.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/three.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/three.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +35,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "maxsainsbury"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/maxsainsbury/PortfolioWebsite.git",
+    "accountId": "b22b1ce3-6075-45b5-a0a7-f8d2bba4d768"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
@@ -49,9 +65,9 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "maxDev",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/PortfolioWebsite",
+    "last_opened_file_path": "C:/Users/Maxwe/OneDrive - Camosun College/Term_2/ICS128/Final",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
@@ -60,8 +76,8 @@
     "node.js.selected.package.stylelint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "rsyncConfigurable",
-    "ts.external.directory.path": "/home/max/JetBrains/WebStorm-242.22855.79/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "settings.editor.selected.configurable": "JavaScript.Libraries",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -135,6 +151,7 @@
     <MESSAGE value="added Threejs and setup basic Threejs structure" />
     <MESSAGE value="added desk setup to three.js file, and a basic loading screen" />
     <MESSAGE value="added a portfolio section to the page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a portfolio section to the page" />
+    <MESSAGE value="added fonts from google fonts" />
+    <option name="LAST_COMMIT_MESSAGE" value="added fonts from google fonts" />
   </component>
 </project>

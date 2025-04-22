@@ -12,10 +12,21 @@
 html, body {
     min-width: 100%;
     height: auto;
+    font-family: "Geist Mono", sans-serif;
+    overflow-y: hidden;
+}
+
+h1 {
+    font-family: "MedievalSharp", cursive;
+    font-weight: 600;
 }
 
 nav {
     z-index: 5;
+}
+
+nav a {
+    cursor: pointer;
 }
 
 #hero {
@@ -45,13 +56,12 @@ canvas {
 }
 
 #content {
-    position: relative;
+    display: none;
+    position: absolute;
+    z-index: 3;
     top: 0;
     left: 0;
-}
-
-#spacer {
-    min-height: 95vh;
+    overflow-y: auto;
 }
 
 .card img {
@@ -65,6 +75,10 @@ footer {
     width: 100%;
     display: flex;
     justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
 }
 
 footer a {

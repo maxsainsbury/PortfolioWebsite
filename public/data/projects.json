@@ -5,6 +5,12 @@
       "image": "./public/images/travelsystem.png",
       "description": "School project for software engineering process class at Camosun College. Made with a group with two other people using Java. Created to be booking software for a travel agency",
       "link": "https://github.com/maxsainsbury/TravelSystem"
+    },
+    {
+      "name" : "Portfolio Website",
+      "image": "./public/images/portfolio.png",
+      "description": "My portfolio website, made with HTML, CSS, and JavaScript. Using Three.js, jQuery, and Gsap",
+      "link": "https://github.com/maxsainsbury/PortfolioWebsite"
     }
   ]
 }
