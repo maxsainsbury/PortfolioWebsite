@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="changed wait time for going back to 3d scene">
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added page displaying event listeners for mobile devices">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/three.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/three.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +59,7 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;maxDev&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/max/Documents/Portfolio/public/icons&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -112,6 +110,7 @@
       <workItem from="1745252284174" duration="825000" />
       <workItem from="1745289650269" duration="3604000" />
       <workItem from="1745299033942" duration="1588000" />
+      <workItem from="1745325761558" duration="818000" />
     </task>
     <task id="LOCAL-00001" summary="Built basic structure of files and basic html structure">
       <option name="closed" value="true" />

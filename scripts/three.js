@@ -8,6 +8,8 @@ let canvas = $('canvas');
 let footer = $('footer');
 let width = container.width();
 let height = container.height();
+let aspect = width / height;
+let fov;
 let white = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 let gray = new THREE.MeshBasicMaterial( { color: 0x808080 } );
 let chairLoad = false;
@@ -18,8 +20,24 @@ let lock = false;
 let waitCount = 0;
 let touchStart = 0;
 
+console.log(aspect);
+
+const calcFov = () => {
+    if (aspect < 0.5) {
+        fov = 90;
+    }
+    else if (aspect < 1) {
+        fov = 75;
+    }
+    else {
+        fov = 60;
+    }
+}
+
+calcFov();
+
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 60, width / height, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( fov, aspect, 0.1, 1000 );
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
@@ -133,9 +151,11 @@ renderer.setAnimationLoop( animate );
 const resizeContainer = () => {
     width = container.width();
     height = container.height();
+    aspect = width / height;
+    calcFov()
     renderer.setSize( width, height );
-
-    camera.aspect = width / height;
+    camera.aspect = aspect;
+    camera.fov = fov;
     camera.updateProjectionMatrix();
     renderer.render( scene, camera );
 }
