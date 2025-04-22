@@ -3,6 +3,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const container = $('#hero');
+let contentDiv = $('#content');
+let footer = $('footer');
 let width = container.width();
 let height = container.height();
 let white = new THREE.MeshBasicMaterial( { color: 0xffffff } );
@@ -115,7 +117,7 @@ loadFiles();
 
 camera.position.z = 2.5;
 camera.position.y = 1.2;
-camera.lookAt(0,0.5,0);
+camera.rotation.x = -0.3;
 
 
 function animate() {
@@ -134,4 +136,41 @@ const resizeContainer = () => {
     renderer.render( scene, camera );
 }
 
+const zoomIn = () => {
+    const cameraZEnd = 0.3;
+    const cameraYEnd = 1.053;
+    const rotationXEnd = 0;
+    gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: 1.2});
+    gsap.to(camera.rotation, {x: rotationXEnd, duration: 1.2, onComplete: () => {
+            contentDiv.fadeIn(200);
+        }});
+}
+
+const zoomOut = () => {
+    const cameraZStart = 2.5;
+    const cameraYStart = 1.2;
+    const rotationXStart = -0.3;
+    if(window.scrollY === 0) {
+        if(contentDiv.css('display') === 'block') {
+            contentDiv.fadeOut(200);
+        }
+    }
+    gsap.to(camera.position, {duration: 0.3, onComplete: () => {
+            gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: 1.2});
+            gsap.to(camera.rotation, {x: rotationXStart, duration: 1.2});
+    }});
+}
+
 window.addEventListener("resize", resizeContainer);
+
+addEventListener("wheel", (event) => {
+    console.log(event.deltaY);
+    if(camera.position.z > 0.3 && event.deltaY > 0 && window.scrollY === 0) {
+        zoomIn()
+    }
+    else if(camera.position.z < 2.5 && event.deltaY < 0) {
+        zoomOut()
+    }
+});
+
+window.scroll(0,0);
