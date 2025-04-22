@@ -37,7 +37,7 @@ const credits = async () => {
 
     for(let i = 0; i < credits.length; i++){
         let { credit } = credits[i];
-        creditText += `<p class="text-white">${credit}</p>`
+        creditText += `<p class="text-white credit">${credit}</p>`
     }
     creditDiv.html(`<h1 class="w-100 text-center border-bottom border-light text-white">Credits</h1>`);
     creditDiv.append(creditText);

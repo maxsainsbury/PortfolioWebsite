@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const container = $('#hero');
 let contentDiv = $('#content');
+let canvas = $('canvas');
 let footer = $('footer');
 let width = container.width();
 let height = container.height();
@@ -15,6 +16,7 @@ let monitorLoad = false;
 let computerLoad = false;
 let lock = false;
 let waitCount = 0;
+let touchStart = 0;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 60, width / height, 0.1, 1000 );
@@ -181,15 +183,36 @@ const zoomOut = () => {
 
 window.addEventListener("resize", resizeContainer);
 
-addEventListener("wheel", (event) => {
-    if(camera.position.z > 0.3 && event.deltaY > 0) {
+document.getElementById('hero').addEventListener("click", (event) => {
+    if(camera.position.z > 0.3) {
         zoomIn()
     }
-    else if(camera.position.z < 2.5 && event.deltaY < 0 && contentDiv.scrollTop() === 0) {
+});
+
+addEventListener('touchstart', (event) => {
+    touchStart = event.touches[0].clientY;
+});
+
+addEventListener('touchmove', (event) => {
+    const touchCurrent = event.touches[0].clientY;
+    console.log(touchStart - touchCurrent);
+    if(touchStart - touchCurrent > 0) {
+        waitCount = 0;
+        zoomIn();
+    }
+    else if(touchStart - touchCurrent < 0 && contentDiv.scrollTop() === 0) {
         zoomOut()
     }
+    touchStart = touchCurrent;
+})
+
+addEventListener("wheel", (event) => {
     if(event.deltaY > 0) {
         waitCount = 0;
+        zoomIn()
+    }
+    else if(event.deltaY < 0 && contentDiv.scrollTop() === 0) {
+        zoomOut()
     }
 });
 
