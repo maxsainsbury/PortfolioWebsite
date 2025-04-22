@@ -55,6 +55,14 @@ canvas {
     width: 7em;
 }
 
+#credits-btn {
+    position: absolute;
+    bottom: 5em;
+    left: 1em;
+    z-index: 3;
+    opacity: 0.5;
+}
+
 #content {
     height: 87vh;
     display: none;
@@ -62,6 +70,30 @@ canvas {
     z-index: 3;
     top: 0;
     left: 0;
+    scroll-behavior: smooth;
+}
+
+#about {
+    height: 150%;
+}
+
+.about-col {
+    width: 100%;
+}
+
+#about-text {
+    height: 70%;
+}
+
+#about-image {
+    height: 30%;
+    padding: 1em 0;
+}
+
+#about-photo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
 }
 
 #projects {
@@ -73,7 +105,7 @@ canvas {
 }
 
 .credit {
-    font-size: 0.5em;
+    font-size: 1em;
 }
 
 .card img {
@@ -113,12 +145,42 @@ footer .bi {
     cursor: pointer;
 }
 
+@media only screen and (min-device-width: 768px) {
+    html {
+        font-size: 1.5em;
+    }
+    #about {
+        height: 100%;
+    }
+
+    .about-col {
+        height: 100%;
+    }
+
+    #about-image {
+        order: 0;
+        width: 50%;
+        height: 100%;
+        padding: 0;
+    }
+
+    #about-text {
+        order: 1;
+        width: 50%;
+        height: 100%;
+    }
+}
+
 @media only screen and (min-device-width: 1200px) {
-    #projects .card {
-        width: 25%;
+    html {
+        font-size: 1em;
+    }
+    #projects {
+        padding-top: 1em;
     }
 
     #content {
         height: 83.5vh;
     }
+
 }

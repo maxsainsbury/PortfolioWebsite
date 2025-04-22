@@ -3,15 +3,17 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const container = $('#hero');
-let contentDiv = $('#content');
-let canvas = $('canvas');
-let footer = $('footer');
+const contentDiv = $('#content');
+const creditsBtn = $('#credits-btn');
+const creditModal = new bootstrap.Modal(document.getElementById('credits-modal'), {});
+const creditsText = $('#credits-text');
 let width = container.width();
 let height = container.height();
 let aspect = width / height;
 let fov;
-let white = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-let gray = new THREE.MeshBasicMaterial( { color: 0x808080 } );
+const white = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+const gray = new THREE.MeshBasicMaterial( { color: 0x808080 } );
+let chair;
 let chairLoad = false;
 let deskLoad = false;
 let monitorLoad = false;
@@ -19,8 +21,7 @@ let computerLoad = false;
 let lock = false;
 let waitCount = 0;
 let touchStart = 0;
-
-console.log(aspect);
+const animTime = 1.2;
 
 const calcFov = () => {
     if (aspect < 0.5) {
@@ -59,8 +60,8 @@ manager.onLoad = function ( ) {
     loading.fadeOut(400, () => {
         loading.remove();
     });
-    displayContent();
     console.log( 'Loading complete!');
+    displayContent();
 };
 
 manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
@@ -123,7 +124,7 @@ const loadFiles = async () => {
 
     loader.load('../public/models/desk_chair.glb', function (gltf) {
         chairLoad = true;
-        const chair = gltf.scene;
+        chair = gltf.scene;
         chair.position.set(0.5, -0.05, 0.95);
         chair.rotation.y = -2.3;
         chair.scale.set(0.08, 0.08, 0.08);
@@ -160,15 +161,19 @@ const resizeContainer = () => {
     renderer.render( scene, camera );
 }
 
-const zoomIn = () => {
+export const zoomIn = () => {
     const cameraZEnd = 0.25;
     const cameraYEnd = 1.053;
     const rotationXEnd = 0;
-    if(!lock) {
+    const chairXEnd = 0;
+    const chairRotEnd = -Math.PI;
+    if (!lock) {
         lock = true;
-        gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: 1.2});
+        gsap.to(chair.position, {x: chairXEnd, duration: animTime});
+        gsap.to(chair.rotation, {y:chairRotEnd, duration: animTime});
+        gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: animTime});
         gsap.to(camera.rotation, {
-            x: rotationXEnd, duration: 1.2, onComplete: () => {
+            x: rotationXEnd, duration: animTime, onComplete: () => {
                 contentDiv.fadeIn(1000, () => {
                     lock = false;
                 });
@@ -177,23 +182,29 @@ const zoomIn = () => {
     }
 }
 
-const zoomOut = () => {
+export const zoomOut = (override = 0) => {
+    if(override) {
+        waitCount = override;
+    }
     const cameraZStart = 2.5;
     const cameraYStart = 1.2;
     const rotationXStart = -0.3;
+    const chairXStart = 0.5;
+    const chairRotStart = -2.3;
     if(!lock) {
-        console.log(waitCount);
         waitCount++;
         if(waitCount >= 10) {
             waitCount = 0;
             lock = true;
             if (contentDiv.css('display') === 'block') {
-                contentDiv.fadeOut(1000);
+                contentDiv.fadeOut(800);
             }
             gsap.to(camera.position, {
-                duration: 1, onComplete: () => {
-                    gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: 1.2});
-                    gsap.to(camera.rotation, {x: rotationXStart, duration: 1.2});
+                duration: 0.8, onComplete: () => {
+                    gsap.to(chair.position, {x: chairXStart, ease: "power2.out", duration: animTime});
+                    gsap.to(chair.rotation, {y: chairRotStart, ease: "power2.out", duration: animTime});
+                    gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: animTime});
+                    gsap.to(camera.rotation, {x: rotationXStart, duration: animTime});
                     lock = false;
                 }
             });
@@ -203,19 +214,12 @@ const zoomOut = () => {
 
 window.addEventListener("resize", resizeContainer);
 
-document.getElementById('hero').addEventListener("click", (event) => {
-    if(camera.position.z > 0.3) {
-        zoomIn()
-    }
-});
-
 addEventListener('touchstart', (event) => {
     touchStart = event.touches[0].clientY;
 });
 
 addEventListener('touchmove', (event) => {
     const touchCurrent = event.touches[0].clientY;
-    console.log(touchStart - touchCurrent);
     if(touchStart - touchCurrent > 0) {
         waitCount = 0;
         zoomIn();
@@ -227,7 +231,7 @@ addEventListener('touchmove', (event) => {
 })
 
 addEventListener("wheel", (event) => {
-    if(event.deltaY > 0) {
+    if(event.deltaY > 0 && contentDiv.scrollTop() === 0) {
         waitCount = 0;
         zoomIn()
     }
@@ -235,5 +239,21 @@ addEventListener("wheel", (event) => {
         zoomOut()
     }
 });
+
+creditsBtn.on('click', async (event) => {
+    let response = await fetch('../public/data/credits.json');
+    let data = await response.json();
+    let { credits } = data;
+    let creditText = ``;
+
+    for(let i = 0; i < credits.length; i++){
+        let { credit, link } = credits[i];
+        creditText += `<p class="text-white credit">${credit} (<a class="link-secondary link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="${link}">${link}</a>).</p>`
+    }
+
+    creditsText.html(creditText);
+    creditModal.show()
+
+})
 
 window.scroll(0,0);

@@ -1,6 +1,17 @@
-let content = $('#content');
-let projectsDiv = $('#projects');
-let creditDiv = $('#credits');
+const content = $('#content');
+const aboutDiv = $('#about');
+const projectsDiv = $('#projects');
+
+const about = () => {
+    aboutDiv.html(`
+                                   <div class="about-col col-12 col-md-6 d-flex flex-column justify-content-center align-items-center" id="about-text">
+                                     <h3>About Title</h3>
+                                     <p>about text</p>
+                                   </div>
+                                   <div class="about-col col-12 col-md-6 d-flex justify-content-center align-items-center" id="about-image">
+                                     <img class="border rounded-circle" src="./public/images/max.jpg" alt="Photo of Max Sainsbury" id="about-photo">
+                                   </div>`);
+}
 
 const projects = async () => {
     let response = await fetch('../public/data/projects.json');
@@ -25,22 +36,8 @@ const projects = async () => {
                             </div>
                         </div>`;
     }
-    projectsDiv.html(`<h1 class="w-100 text-center border-bottom border-dark">Projects</h1>`);
+    projectsDiv.html(`<h1 class="w-100 text-center border-bottom border-light text-white">Projects</h1>`);
     projectsDiv.append(projectCards);
-}
-
-const credits = async () => {
-    let response = await fetch('../public/data/credits.json');
-    let data = await response.json();
-    let { credits } = data;
-    let creditText = ``;
-
-    for(let i = 0; i < credits.length; i++){
-        let { credit } = credits[i];
-        creditText += `<p class="text-white credit">${credit}</p>`
-    }
-    creditDiv.html(`<h1 class="w-100 text-center border-bottom border-light text-white">Credits</h1>`);
-    creditDiv.append(creditText);
 }
 
 const overflow = () => {
@@ -48,7 +45,7 @@ const overflow = () => {
 }
 
 const displayContent = () => {
+    about();
     projects();
-    credits();
     overflow();
 }

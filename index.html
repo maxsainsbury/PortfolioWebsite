@@ -24,15 +24,17 @@
     <body class="bg-dark-subtle">
         <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body px-2" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Max Sainsbury</a>
+                <a class="navbar-brand" id="nav-title">Max Sainsbury</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item d-flex">
-                            <a class="nav-link active" aria-current="page" id="home">Home</a>
-                            <a class="nav-link" aria-current="page" id="portfolio">Portfolio</a>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" id="nav-home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" id="nav-projects">Projects</a>
                         </li>
                     </ul>
                 </div>
@@ -42,17 +44,36 @@
             <div class="bg-dark w-100 h-100 d-flex justify-content-center align-items-center" id="loading">
                 <img src="./public/icons/spinner.gif" alt="loading gif">
             </div>
+            <a class="btn btn-outline-light" id="credits-btn">Credits</a>
         </div>
         <div class="container-fluid bg-dark" id="content">
-            <div class="bg-dark-subtle row px-2 pb-4" id="projects"></div>
-            <div class="bg-dark text-white px-2" id="credits"></div>
+            <div class="bg-dark-subtle px-2 row" id="about"></div>
+            <div class="bg-dark row px-2" id="projects"></div>
+
         </div>
         <footer class="border-top bg-dark mt-2">
             <a class="link-light" href="https://github.com/maxsainsbury"><i class="bi bi-github"></i></a>
             <a class="link-light" href="https://www.linkedin.com/in/max-sainsbury-b172a4361/"><i class="bi bi-linkedin"></i></a>
         </footer>
+
+        <div class="modal fade" id="credits-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark text-white">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Credits</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="credits-text"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
         <script src="./scripts/page.js"></script>
         <script type="module" src="scripts/three.js"></script>
+        <script type="module" src="./scripts/nav.js"></script>
     </body>
 </html>
