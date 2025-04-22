@@ -137,12 +137,12 @@ const resizeContainer = () => {
 }
 
 const zoomIn = () => {
-    const cameraZEnd = 0.3;
+    const cameraZEnd = 0.25;
     const cameraYEnd = 1.053;
     const rotationXEnd = 0;
     gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: 1.2});
     gsap.to(camera.rotation, {x: rotationXEnd, duration: 1.2, onComplete: () => {
-            contentDiv.fadeIn(200);
+            contentDiv.fadeIn(1000);
         }});
 }
 
@@ -152,7 +152,7 @@ const zoomOut = () => {
     const rotationXStart = -0.3;
     if(window.scrollY === 0) {
         if(contentDiv.css('display') === 'block') {
-            contentDiv.fadeOut(200);
+            contentDiv.fadeOut(1000);
         }
     }
     gsap.to(camera.position, {duration: 0.3, onComplete: () => {
