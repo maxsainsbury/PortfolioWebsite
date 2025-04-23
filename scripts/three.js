@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 const container = $('#hero');
 const contentDiv = $('#content');
@@ -21,13 +22,18 @@ const powerLightRed = new THREE.PointLight( 0xff0000, 0.08, 0.05 );
 const powerLightGreen = new THREE.PointLight( 0x00ff00, 0, 0.05 );
 const emissiveGreen = new THREE.MeshStandardMaterial( { color: 0x00ff00, emissive: 0x00ff00 } );
 const emissiveRed = new THREE.MeshStandardMaterial( { color: 0xff0000, emissive: 0xff0000 } );
+const emissiveWhite = new THREE.MeshStandardMaterial( { color: 0xffffff, emissive: 0xffffff } );
+
+const screenLight = new THREE.RectAreaLight( 0xffffff, 0,  0.71, 0.36 );
+screenLight.position.set(0, 1.06, 0.001);
+screenLight.rotation.set(0, Math.PI, 0);
+
+
+
 let textMesh;
 let chair;
 let monitor;
-let chairLoad = false;
-let deskLoad = false;
-let monitorLoad = false;
-let computerLoad = false;
+let computer;
 let lock = false;
 let waitCount = 0;
 let touchStart = 0;
@@ -61,7 +67,7 @@ const powerButton = new THREE.Mesh( cylinder, emissiveRed );
 buttonGroup.add(powerLightGreen);
 buttonGroup.add(powerLightRed);
 buttonGroup.add(powerButton);
-buttonGroup.name = 'power';
+buttonGroup.name = 'computer';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
@@ -73,6 +79,8 @@ const screen = new THREE.Mesh( geometry, material );
 screen.position.set(0,1.06,0);
 screen.name = 'screen';
 scene.add( screen );
+
+scene.add(screenLight);
 
 const manager = new THREE.LoadingManager();
 manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
@@ -118,7 +126,6 @@ const loadFiles = () => {
         // onLoad callback
         function ( font ) {
             // do something with the font
-            console.log( font );
             let text = new TextGeometry( 'CLICK', {
                 font: font,
                 size: 0.1,
@@ -130,7 +137,7 @@ const loadFiles = () => {
                 bevelOffset: 0,
                 bevelSegments: 5
             });
-            textMesh = new THREE.Mesh( text, white );
+            textMesh = new THREE.Mesh( text, emissiveWhite );
             textMesh.position.set(-0.18, 1, 0);
             textMesh.rotation.set(0, 0, 0);
             textMesh.name = 'screen';
@@ -138,7 +145,6 @@ const loadFiles = () => {
     )
 
     textureLoader.load('../public/models/computer_desk.glb', function (gltf) {
-        deskLoad = true;
         const desk = gltf.scene;
         desk.position.set(0, 0, 0);
         desk.traverse((o) => {
@@ -146,21 +152,9 @@ const loadFiles = () => {
         });
         scene.add(desk);
 
-    },
-        // called while loading is progressing
-        function ( xhr ) {
-
-        },
-        // called when loading has errors
-        function ( error ) {
-
-            console.log( 'An error happened' );
-
-        }
-    );
+    });
 
     textureLoader.load('../public/models/computer_monitor.glb', function (gltf) {
-        monitorLoad = true;
         monitor = gltf.scene;
         monitor.position.set(0, 0.74, 0);
         monitor.scale.set(0.1, 0.1, 0.1);
@@ -172,8 +166,7 @@ const loadFiles = () => {
     });
 
     textureLoader.load('../public/models/computer.glb', function (gltf) {
-        computerLoad = true;
-        const computer = gltf.scene;
+        computer = gltf.scene;
         computer.position.set(-0.68, 0.90, 0.2);
         computer.scale.set(0.15, 0.15, 0.15);
         computer.traverse((o) => {
@@ -181,12 +174,12 @@ const loadFiles = () => {
         });
         buttonGroup.position.set(-0.679, 0.7705, 0.34);
         buttonGroup.rotation.x = 1.57;
+        computer.name = 'computer';
         scene.add(buttonGroup);
         scene.add(computer);
     });
 
     textureLoader.load('../public/models/desk_chair.glb', function (gltf) {
-        chairLoad = true;
         chair = gltf.scene;
         chair.position.set(0.1, -0.55, 0.085);
         chair.rotation.y = -2.3;
@@ -198,6 +191,21 @@ const loadFiles = () => {
         chairGroup.add(chair);
 
     });
+
+    textureLoader.load('../public/models/keyboard.glb', function (gltf) {
+        const keyboard = gltf.scene;
+        keyboard.position.set(0,0.775,0.25);
+        keyboard.scale.set(1.7,1.7,1.7);
+        scene.add(keyboard);
+    });
+
+    textureLoader.load('../public/models/mouse.glb', function (gltf) {
+        const mouse = gltf.scene;
+        mouse.position.set(0.28,0.735,0.17);
+        mouse.rotation.set(0,Math.PI/2,0);
+        mouse.scale.set(0.03, 0.03, 0.03);
+        scene.add(mouse);
+    })
 }
 
 const directionalLight = new THREE.DirectionalLight( 0xffffff, 4 );
@@ -225,8 +233,7 @@ function render() {
         let intersects = raycaster.intersectObjects(scene.children);
         if (intersects.length > 0) {
             intersects = intersects[0].object;
-            console.log(intersects);
-            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name !== 'power') && (intersects.name !== 'Sketchfab_Scene')) {
+            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name !== 'computer') && (intersects.name !== 'Sketchfab_Scene')) {
                 intersects = intersects.parent;
             }
             if (intersects.name === 'chair') {
@@ -238,8 +245,7 @@ function render() {
 
             } else if (intersects.name === 'screen') {
                 zoomIn();
-                scene.remove(textMesh);
-            } else if (intersects.name === 'power') {
+            } else if (intersects.name === 'computer') {
                 changeButton();
             }
         } else {
@@ -278,6 +284,10 @@ export const zoomIn = () => {
     displayContent();
     if (!lock) {
         lock = true;
+        if(powerButton.material === emissiveGreen) {
+            scene.remove(textMesh);
+            screenLight.intensity = 0;
+        }
         gsap.to(chairGroup.position, {x: chairXEnd, duration: animTime});
         gsap.to(chairGroup.rotation, {y:chairRotEnd, duration: animTime});
         gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: animTime});
@@ -314,7 +324,10 @@ export const zoomOut = (override = 0) => {
                     gsap.to(chairGroup.rotation, {y: chairRotStart, ease: "power2.out", duration: animTime});
                     gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: animTime});
                     gsap.to(camera.rotation, {x: rotationXStart, duration: animTime, onComplete: () => {
-                        scene.add(textMesh);
+                        if(powerButton.material === emissiveGreen) {
+                            scene.add(textMesh);
+                            screenLight.intensity = 2;
+                        }
                         lock = false;
                     }});
                 }
@@ -333,10 +346,10 @@ const changePointer = (event) => {
         let intersects = raycaster.intersectObjects(scene.children);
         if (intersects.length > 0) {
             intersects = intersects[0].object;
-            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name) !== 'power' && (intersects.name !== 'Sketchfab_Scene')) {
+            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name) !== 'computer' && (intersects.name !== 'Sketchfab_Scene')) {
                 intersects = intersects.parent;
             }
-            if (intersects === chair || intersects === screen || intersects === textMesh || intersects === buttonGroup) {
+            if (intersects === chair || intersects === screen || intersects === textMesh || intersects === computer) {
                 document.getElementsByTagName('canvas')[0].style.cursor = 'pointer';
             } else {
                 document.getElementsByTagName('canvas')[0].style.cursor = 'default';
@@ -353,12 +366,14 @@ const changeButton = () => {
         powerLightGreen.intensity = 0.08;
         powerButton.material = emissiveGreen;
         scene.add(textMesh);
+        screenLight.intensity = 2;
     }
     else {
         powerLightRed.intensity = 0.08;
         powerLightGreen.intensity = 0;
         powerButton.material = emissiveRed;
         scene.remove(textMesh);
+        screenLight.intensity = 0;
     }
 }
 

@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added the ability to click on objects to do somthing">
-      <change afterPath="$PROJECT_DIR$/public/fonts/MedievalSharp_Regular.json" afterDir="false" />
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added more objects to click on in the three js scene">
+      <change afterPath="$PROJECT_DIR$/public/models/keyboard.glb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/models/mouse.glb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/data/credits.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/credits.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/three.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/three.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,11 +85,11 @@
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\PortfolioWebsite\public\models" />
       <recent name="C:\PortfolioWebsite\public\fonts" />
       <recent name="$PROJECT_DIR$/public/data" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/scripts" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -236,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745439764639</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="added more objects to click on in the three js scene">
+      <option name="closed" value="true" />
+      <created>1745445645930</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1745445645930</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +268,7 @@
     <MESSAGE value="changed about secion heights" />
     <MESSAGE value="atempt to fix loading on mobile" />
     <MESSAGE value="added the ability to click on objects to do somthing" />
-    <option name="LAST_COMMIT_MESSAGE" value="added the ability to click on objects to do somthing" />
+    <MESSAGE value="added more objects to click on in the three js scene" />
+    <option name="LAST_COMMIT_MESSAGE" value="added more objects to click on in the three js scene" />
   </component>
 </project>
