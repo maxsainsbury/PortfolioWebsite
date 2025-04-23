@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="atempt to fix loading on mobile">
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added the ability to click on objects to do somthing">
+      <change afterPath="$PROJECT_DIR$/public/fonts/MedievalSharp_Regular.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/three.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/three.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +84,7 @@
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\PortfolioWebsite\public\fonts" />
       <recent name="$PROJECT_DIR$/public/data" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/scripts" />
@@ -225,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745374543197</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="added the ability to click on objects to do somthing">
+      <option name="closed" value="true" />
+      <created>1745439764639</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1745439764639</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,6 +258,7 @@
     <MESSAGE value="made the program redisplay the content section when reopened" />
     <MESSAGE value="changed about secion heights" />
     <MESSAGE value="atempt to fix loading on mobile" />
-    <option name="LAST_COMMIT_MESSAGE" value="atempt to fix loading on mobile" />
+    <MESSAGE value="added the ability to click on objects to do somthing" />
+    <option name="LAST_COMMIT_MESSAGE" value="added the ability to click on objects to do somthing" />
   </component>
 </project>

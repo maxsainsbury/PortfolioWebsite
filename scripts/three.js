@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 const container = $('#hero');
 const contentDiv = $('#content');
@@ -10,12 +12,16 @@ let width = container.width();
 let height = container.height();
 let aspect = width / height;
 let fov;
-const white = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-const gray = new THREE.MeshBasicMaterial( { color: 0x808080 } );
+const white = new THREE.MeshStandardMaterial( { color: 0xffffff } );
+const gray = new THREE.MeshStandardMaterial( { color: 0x808080 } );
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2(-1,-1);
 const pointerChange = new THREE.Vector2(-1,-1);
-let intersected;
+const powerLightRed = new THREE.PointLight( 0xff0000, 0.08, 0.05 );
+const powerLightGreen = new THREE.PointLight( 0x00ff00, 0, 0.05 );
+const emissiveGreen = new THREE.MeshStandardMaterial( { color: 0x00ff00, emissive: 0x00ff00 } );
+const emissiveRed = new THREE.MeshStandardMaterial( { color: 0xff0000, emissive: 0xff0000 } );
+let textMesh;
 let chair;
 let monitor;
 let chairLoad = false;
@@ -44,10 +50,18 @@ calcFov();
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( fov, aspect, 0.1, 1000 );
 
-const group = new THREE.Group();
-group.position.set(0.4, 0.5, 0.85);
-group.name = 'chair';
-scene.add(group);
+const chairGroup = new THREE.Group();
+chairGroup.position.set(0.4, 0.5, 0.85);
+chairGroup.name = 'chair';
+scene.add(chairGroup);
+
+const buttonGroup = new THREE.Group();
+const cylinder = new THREE.CylinderGeometry( 0.01, 0.01, 0.01, 32 );
+const powerButton = new THREE.Mesh( cylinder, emissiveRed );
+buttonGroup.add(powerLightGreen);
+buttonGroup.add(powerLightRed);
+buttonGroup.add(powerButton);
+buttonGroup.name = 'power';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
@@ -92,11 +106,38 @@ manager.onError = function ( url ) {
     console.log( 'There was an error loading ' + url );
 };
 
-const loader = new GLTFLoader(manager);
+const textureLoader = new GLTFLoader(manager);
+const textLoader = new FontLoader();
 
-const loadFiles = async () => {
+const loadFiles = () => {
 
-    loader.load('../public/models/computer_desk.glb', function (gltf) {
+    textLoader.load(
+        // resource URL
+        '../public/fonts/MedievalSharp_Regular.json',
+
+        // onLoad callback
+        function ( font ) {
+            // do something with the font
+            console.log( font );
+            let text = new TextGeometry( 'CLICK', {
+                font: font,
+                size: 0.1,
+                depth: 0.001,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.01,
+                bevelSize: 0.001,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+            textMesh = new THREE.Mesh( text, white );
+            textMesh.position.set(-0.18, 1, 0);
+            textMesh.rotation.set(0, 0, 0);
+            textMesh.name = 'screen';
+        }
+    )
+
+    textureLoader.load('../public/models/computer_desk.glb', function (gltf) {
         deskLoad = true;
         const desk = gltf.scene;
         desk.position.set(0, 0, 0);
@@ -118,30 +159,33 @@ const loadFiles = async () => {
         }
     );
 
-    loader.load('../public/models/computer_monitor.glb', function (gltf) {
+    textureLoader.load('../public/models/computer_monitor.glb', function (gltf) {
         monitorLoad = true;
         monitor = gltf.scene;
         monitor.position.set(0, 0.74, 0);
         monitor.scale.set(0.1, 0.1, 0.1);
         monitor.traverse((o) => {
-            if (o.isMesh) o.material = white;
+            //if (o.isMesh) o.material = white;
         });
         scene.add(monitor);
 
     });
 
-    await loader.load('../public/models/computer.glb', function (gltf) {
+    textureLoader.load('../public/models/computer.glb', function (gltf) {
         computerLoad = true;
         const computer = gltf.scene;
         computer.position.set(-0.68, 0.90, 0.2);
         computer.scale.set(0.15, 0.15, 0.15);
         computer.traverse((o) => {
-            if (o.isMesh) o.material = white;
+            //if (o.isMesh) o.material = white;
         });
+        buttonGroup.position.set(-0.679, 0.7705, 0.34);
+        buttonGroup.rotation.x = 1.57;
+        scene.add(buttonGroup);
         scene.add(computer);
     });
 
-    loader.load('../public/models/desk_chair.glb', function (gltf) {
+    textureLoader.load('../public/models/desk_chair.glb', function (gltf) {
         chairLoad = true;
         chair = gltf.scene;
         chair.position.set(0.1, -0.55, 0.085);
@@ -151,10 +195,17 @@ const loadFiles = async () => {
         chair.traverse((o) => {
             if (o.isMesh) o.material = gray;
         });
-        group.add(chair);
+        chairGroup.add(chair);
 
     });
 }
+
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 4 );
+directionalLight.castShadow = true;
+directionalLight.position.set( 1, 2, 5 );
+directionalLight.target = screen;
+
+scene.add( directionalLight );
 
 const selectModel = ( event ) => {
 
@@ -175,18 +226,21 @@ function render() {
         if (intersects.length > 0) {
             intersects = intersects[0].object;
             console.log(intersects);
-            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name !== 'Sketchfab_Scene')) {
+            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name !== 'power') && (intersects.name !== 'Sketchfab_Scene')) {
                 intersects = intersects.parent;
             }
             if (intersects.name === 'chair') {
-                gsap.to(group.rotation, {
+                gsap.to(chairGroup.rotation, {
                     y: (Math.PI * 2), duration: 1.5, onComplete: () => {
-                        group.rotation.y = 0;
+                        chairGroup.rotation.y = 0;
                     }
                 });
 
             } else if (intersects.name === 'screen') {
                 zoomIn();
+                scene.remove(textMesh);
+            } else if (intersects.name === 'power') {
+                changeButton();
             }
         } else {
 
@@ -220,12 +274,12 @@ export const zoomIn = () => {
     const cameraYEnd = 1.053;
     const rotationXEnd = 0;
     const chairXEnd = 0;
-    const chairRotEnd = -Math.PI;
+    const chairRotEnd = -0.85;
     displayContent();
     if (!lock) {
         lock = true;
-        gsap.to(chair.position, {x: chairXEnd, duration: animTime});
-        gsap.to(chair.rotation, {y:chairRotEnd, duration: animTime});
+        gsap.to(chairGroup.position, {x: chairXEnd, duration: animTime});
+        gsap.to(chairGroup.rotation, {y:chairRotEnd, duration: animTime});
         gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: animTime});
         gsap.to(camera.rotation, {
             x: rotationXEnd, duration: animTime, onComplete: () => {
@@ -245,7 +299,7 @@ export const zoomOut = (override = 0) => {
     const cameraYStart = 1.2;
     const rotationXStart = -0.3;
     const chairXStart = 0.5;
-    const chairRotStart = -2.3;
+    const chairRotStart = 0;
     if(!lock) {
         waitCount++;
         if(waitCount >= 10) {
@@ -256,11 +310,12 @@ export const zoomOut = (override = 0) => {
             }
             gsap.to(camera.position, {
                 duration: 0.8, onComplete: () => {
-                    gsap.to(chair.position, {x: chairXStart, ease: "power2.out", duration: animTime});
-                    gsap.to(chair.rotation, {y: chairRotStart, ease: "power2.out", duration: animTime});
+                    gsap.to(chairGroup.position, {x: chairXStart, ease: "power2.out", duration: animTime});
+                    gsap.to(chairGroup.rotation, {y: chairRotStart, ease: "power2.out", duration: animTime});
                     gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: animTime});
                     gsap.to(camera.rotation, {x: rotationXStart, duration: animTime, onComplete: () => {
-                            lock = false;
+                        scene.add(textMesh);
+                        lock = false;
                     }});
                 }
             });
@@ -278,10 +333,10 @@ const changePointer = (event) => {
         let intersects = raycaster.intersectObjects(scene.children);
         if (intersects.length > 0) {
             intersects = intersects[0].object;
-            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name !== 'Sketchfab_Scene')) {
+            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name) !== 'power' && (intersects.name !== 'Sketchfab_Scene')) {
                 intersects = intersects.parent;
             }
-            if (intersects === chair || intersects === screen) {
+            if (intersects === chair || intersects === screen || intersects === textMesh || intersects === buttonGroup) {
                 document.getElementsByTagName('canvas')[0].style.cursor = 'pointer';
             } else {
                 document.getElementsByTagName('canvas')[0].style.cursor = 'default';
@@ -289,6 +344,21 @@ const changePointer = (event) => {
         } else {
             document.getElementsByTagName('canvas')[0].style.cursor = 'default';
         }
+    }
+}
+
+const changeButton = () => {
+    if(powerButton.material === emissiveRed) {
+        powerLightRed.intensity = 0;
+        powerLightGreen.intensity = 0.08;
+        powerButton.material = emissiveGreen;
+        scene.add(textMesh);
+    }
+    else {
+        powerLightRed.intensity = 0.08;
+        powerLightGreen.intensity = 0;
+        powerButton.material = emissiveRed;
+        scene.remove(textMesh);
     }
 }
 
@@ -306,7 +376,7 @@ $(() => {
 
     addEventListener('touchmove', (event) => {
         const touchCurrent = event.touches[0].clientY;
-        if(touchStart - touchCurrent > 0) {
+        if(contentDiv.css('display') === 'none') {
             waitCount = 0;
             zoomIn();
         }
@@ -317,12 +387,12 @@ $(() => {
     })
 
     addEventListener("wheel", (event) => {
-        if(event.deltaY > 0 && contentDiv.scrollTop() === 0) {
+        if((event.deltaY > 0 || event.deltaY < 0) && contentDiv.css('display') === 'none') {
             waitCount = 0;
-            zoomIn()
+            zoomIn();
         }
         else if(event.deltaY < 0 && contentDiv.scrollTop() === 0) {
-            zoomOut()
+            zoomOut();
         }
     });
 
