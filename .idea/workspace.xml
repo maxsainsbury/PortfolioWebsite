@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added an about section, and fine tuned some aspects of the page">
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="changed font size back to default">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745368573544</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="changed font size back to default">
+      <option name="closed" value="true" />
+      <created>1745370949198</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1745370949198</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,6 +193,7 @@
     <MESSAGE value="changed wait time for going back to 3d scene" />
     <MESSAGE value="added changing fov depending on screen aspect ratio" />
     <MESSAGE value="added an about section, and fine tuned some aspects of the page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added an about section, and fine tuned some aspects of the page" />
+    <MESSAGE value="changed font size back to default" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed font size back to default" />
   </component>
 </project>
