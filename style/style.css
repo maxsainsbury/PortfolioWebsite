@@ -14,7 +14,6 @@ html, body {
     height: auto;
     font-family: "Geist Mono", sans-serif;
     overflow-y: hidden;
-    font-size: 1.5em;
 }
 
 h1 {
@@ -148,10 +147,6 @@ footer .bi {
 }
 
 @media only screen and (min-device-width: 768px) {
-    html {
-        font-size: 1em;
-    }
-
     #credits-btn {
         bottom: 6em;
     }
@@ -203,9 +198,6 @@ footer .bi {
 }
 
 @media only screen and (min-device-width: 1200px) {
-    html {
-        font-size: 0.75em;
-    }
 
     #credits-btn {
         bottom: 6em;
