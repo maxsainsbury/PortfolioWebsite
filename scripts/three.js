@@ -44,15 +44,21 @@ calcFov();
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( fov, aspect, 0.1, 1000 );
 
+const group = new THREE.Group();
+group.position.set(0.4, 0.5, 0.85);
+group.name = 'chair';
+scene.add(group);
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
 container.append( renderer.domElement );
 
 const geometry = new THREE.PlaneGeometry( 0.67, 0.36 );
 const material = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.DoubleSide} );
-const plane = new THREE.Mesh( geometry, material );
-plane.position.set(0,1.06,0);
-scene.add( plane );
+const screen = new THREE.Mesh( geometry, material );
+screen.position.set(0,1.06,0);
+screen.name = 'screen';
+scene.add( screen );
 
 const manager = new THREE.LoadingManager();
 manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
@@ -69,6 +75,7 @@ manager.onLoad = function ( ) {
     camera.position.y = 1.2;
     camera.rotation.x = -0.3;
     renderer.setAnimationLoop( animate );
+    scene.updateMatrixWorld();
 
     window.addEventListener('mousemove', changePointer);
     window.addEventListener( 'click', selectModel );
@@ -94,7 +101,7 @@ const loadFiles = async () => {
         const desk = gltf.scene;
         desk.position.set(0, 0, 0);
         desk.traverse((o) => {
-            if (o.isMesh) o.material = white;
+            if (o.isMesh) o.material = gray;
         });
         scene.add(desk);
 
@@ -132,19 +139,19 @@ const loadFiles = async () => {
             if (o.isMesh) o.material = white;
         });
         scene.add(computer);
-
     });
 
     loader.load('../public/models/desk_chair.glb', function (gltf) {
         chairLoad = true;
         chair = gltf.scene;
-        chair.position.set(0.5, -0.05, 0.95);
+        chair.position.set(0.1, -0.55, 0.085);
         chair.rotation.y = -2.3;
         chair.scale.set(0.08, 0.08, 0.08);
+        chair.name = 'chair';
         chair.traverse((o) => {
-            if (o.isMesh) o.material = white;
+            if (o.isMesh) o.material = gray;
         });
-        scene.add(chair);
+        group.add(chair);
 
     });
 }
@@ -160,24 +167,33 @@ const selectModel = ( event ) => {
 }
 
 function render() {
+    if(contentDiv.css("display") === "none" && !lock) {
+        // update the picking ray with the camera and pointer position
+        raycaster.setFromCamera(pointer, camera);
+        // calculate objects intersecting the picking ray
+        let intersects = raycaster.intersectObjects(scene.children);
+        if (intersects.length > 0) {
+            intersects = intersects[0].object;
+            console.log(intersects);
+            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name !== 'Sketchfab_Scene')) {
+                intersects = intersects.parent;
+            }
+            if (intersects.name === 'chair') {
+                gsap.to(group.rotation, {
+                    y: (Math.PI * 2), duration: 1.5, onComplete: () => {
+                        group.rotation.y = 0;
+                    }
+                });
 
-    // update the picking ray with the camera and pointer position
-    raycaster.setFromCamera( pointer, camera );
+            } else if (intersects.name === 'screen') {
+                zoomIn();
+            }
+        } else {
 
-    // calculate objects intersecting the picking ray
-    const intersects = raycaster.intersectObjects( scene.children );
 
-    if(intersects.length > 0) {
-        if(intersected !== intersects[0].object) {
-            if(intersected) intersected.material = white;
-            intersected = intersects[0].object;
-            intersected.material = gray;
         }
-    }
-    else {
-        if(intersected) intersected.material = white
-        intersected = null;
-
+        pointer.x = -1;
+        pointer.y = -1;
     }
     renderer.render( scene, camera );
 
@@ -243,8 +259,9 @@ export const zoomOut = (override = 0) => {
                     gsap.to(chair.position, {x: chairXStart, ease: "power2.out", duration: animTime});
                     gsap.to(chair.rotation, {y: chairRotStart, ease: "power2.out", duration: animTime});
                     gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: animTime});
-                    gsap.to(camera.rotation, {x: rotationXStart, duration: animTime});
-                    lock = false;
+                    gsap.to(camera.rotation, {x: rotationXStart, duration: animTime, onComplete: () => {
+                            lock = false;
+                    }});
                 }
             });
         }
@@ -252,19 +269,25 @@ export const zoomOut = (override = 0) => {
 }
 
 const changePointer = (event) => {
-    pointerChange.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    pointerChange.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    if(contentDiv.css('display') === 'none' && !lock) {
+        pointerChange.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointerChange.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    raycaster.setFromCamera( pointerChange, camera );
+        raycaster.setFromCamera(pointerChange, camera);
 
-    const intersects = raycaster.intersectObjects( scene.children );
-
-    if(intersects.length > 0) {
-        while(intersects.name !== '') {
-
-        }
-        if(intersects[0].object.parent === chair.children[0] || intersects[0].object === monitor) {
-            document.getElementsByTagName('canvas')[0].style.cursor = 'pointer';
+        let intersects = raycaster.intersectObjects(scene.children);
+        if (intersects.length > 0) {
+            intersects = intersects[0].object;
+            while ((intersects.name !== 'chair') && (intersects.name !== 'screen') && (intersects.name !== 'Sketchfab_Scene')) {
+                intersects = intersects.parent;
+            }
+            if (intersects === chair || intersects === screen) {
+                document.getElementsByTagName('canvas')[0].style.cursor = 'pointer';
+            } else {
+                document.getElementsByTagName('canvas')[0].style.cursor = 'default';
+            }
+        } else {
+            document.getElementsByTagName('canvas')[0].style.cursor = 'default';
         }
     }
 }

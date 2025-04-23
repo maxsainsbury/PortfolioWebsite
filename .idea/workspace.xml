@@ -71,7 +71,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "JavaScript.Libraries",
-    "ts.external.directory.path": "/home/max/JetBrains/WebStorm-242.22855.79/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
