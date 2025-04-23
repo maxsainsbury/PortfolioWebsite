@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const container = $('#hero');
@@ -13,7 +12,12 @@ let aspect = width / height;
 let fov;
 const white = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 const gray = new THREE.MeshBasicMaterial( { color: 0x808080 } );
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2(-1,-1);
+const pointerChange = new THREE.Vector2(-1,-1);
+let intersected;
 let chair;
+let monitor;
 let chairLoad = false;
 let deskLoad = false;
 let monitorLoad = false;
@@ -61,6 +65,15 @@ manager.onLoad = function ( ) {
         loading.remove();
     });
     console.log( 'Loading complete!');
+    camera.position.z = 2.5;
+    camera.position.y = 1.2;
+    camera.rotation.x = -0.3;
+    renderer.setAnimationLoop( animate );
+
+    window.addEventListener('mousemove', changePointer);
+    window.addEventListener( 'click', selectModel );
+
+    window.requestAnimationFrame( animate );
     displayContent();
 };
 
@@ -81,7 +94,7 @@ const loadFiles = async () => {
         const desk = gltf.scene;
         desk.position.set(0, 0, 0);
         desk.traverse((o) => {
-            if (o.isMesh) o.material = gray;
+            if (o.isMesh) o.material = white;
         });
         scene.add(desk);
 
@@ -100,7 +113,7 @@ const loadFiles = async () => {
 
     loader.load('../public/models/computer_monitor.glb', function (gltf) {
         monitorLoad = true;
-        const monitor = gltf.scene;
+        monitor = gltf.scene;
         monitor.position.set(0, 0.74, 0);
         monitor.scale.set(0.1, 0.1, 0.1);
         monitor.traverse((o) => {
@@ -129,25 +142,50 @@ const loadFiles = async () => {
         chair.rotation.y = -2.3;
         chair.scale.set(0.08, 0.08, 0.08);
         chair.traverse((o) => {
-            if (o.isMesh) o.material = gray;
+            if (o.isMesh) o.material = white;
         });
         scene.add(chair);
 
     });
 }
 
-loadFiles();
+const selectModel = ( event ) => {
 
-camera.position.z = 2.5;
-camera.position.y = 1.2;
-camera.rotation.x = -0.3;
+    // calculate pointer position in normalized device coordinates
+    // (-1 to +1) for both components
 
+    pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-function animate() {
-    renderer.render( scene, camera );
 }
 
-renderer.setAnimationLoop( animate );
+function render() {
+
+    // update the picking ray with the camera and pointer position
+    raycaster.setFromCamera( pointer, camera );
+
+    // calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects( scene.children );
+
+    if(intersects.length > 0) {
+        if(intersected !== intersects[0].object) {
+            if(intersected) intersected.material = white;
+            intersected = intersects[0].object;
+            intersected.material = gray;
+        }
+    }
+    else {
+        if(intersected) intersected.material = white
+        intersected = null;
+
+    }
+    renderer.render( scene, camera );
+
+}
+
+function animate() {
+    render();
+}
 
 const resizeContainer = () => {
     width = container.width();
@@ -213,49 +251,71 @@ export const zoomOut = (override = 0) => {
     }
 }
 
-window.addEventListener("resize", resizeContainer);
+const changePointer = (event) => {
+    pointerChange.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    pointerChange.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-addEventListener('touchstart', (event) => {
-    touchStart = event.touches[0].clientY;
-});
+    raycaster.setFromCamera( pointerChange, camera );
 
-addEventListener('touchmove', (event) => {
-    const touchCurrent = event.touches[0].clientY;
-    if(touchStart - touchCurrent > 0) {
-        waitCount = 0;
-        zoomIn();
+    const intersects = raycaster.intersectObjects( scene.children );
+
+    if(intersects.length > 0) {
+        while(intersects.name !== '') {
+
+        }
+        if(intersects[0].object.parent === chair.children[0] || intersects[0].object === monitor) {
+            document.getElementsByTagName('canvas')[0].style.cursor = 'pointer';
+        }
     }
-    else if(touchStart - touchCurrent < 0 && contentDiv.scrollTop() === 0) {
-        zoomOut()
-    }
-    touchStart = touchCurrent;
-})
+}
 
-addEventListener("wheel", (event) => {
-    if(event.deltaY > 0 && contentDiv.scrollTop() === 0) {
-        waitCount = 0;
-        zoomIn()
-    }
-    else if(event.deltaY < 0 && contentDiv.scrollTop() === 0) {
-        zoomOut()
-    }
-});
 
-creditsBtn.on('click', async (event) => {
-    let response = await fetch('../public/data/credits.json');
-    let data = await response.json();
-    let { credits } = data;
-    let creditText = ``;
-
-    for(let i = 0; i < credits.length; i++){
-        let { credit, link } = credits[i];
-        creditText += `<p class="text-white credit">${credit} (<a class="link-secondary link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="${link}">${link}</a>).</p>`
-    }
-
-    creditsText.html(creditText);
-    creditModal.show()
-
-})
 $(() => {
+    loadFiles();
+
     window.scroll(0, 1);
+
+    window.addEventListener("resize", resizeContainer);
+
+    addEventListener('touchstart', (event) => {
+        touchStart = event.touches[0].clientY;
+    });
+
+    addEventListener('touchmove', (event) => {
+        const touchCurrent = event.touches[0].clientY;
+        if(touchStart - touchCurrent > 0) {
+            waitCount = 0;
+            zoomIn();
+        }
+        else if(touchStart - touchCurrent < 0 && contentDiv.scrollTop() === 0) {
+            zoomOut()
+        }
+        touchStart = touchCurrent;
+    })
+
+    addEventListener("wheel", (event) => {
+        if(event.deltaY > 0 && contentDiv.scrollTop() === 0) {
+            waitCount = 0;
+            zoomIn()
+        }
+        else if(event.deltaY < 0 && contentDiv.scrollTop() === 0) {
+            zoomOut()
+        }
+    });
+
+    creditsBtn.on('click', async (event) => {
+        let response = await fetch('../public/data/credits.json');
+        let data = await response.json();
+        let { credits } = data;
+        let creditText = ``;
+
+        for(let i = 0; i < credits.length; i++){
+            let { credit, link } = credits[i];
+            creditText += `<p class="text-white credit">${credit} (<a class="link-secondary link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="${link}">${link}</a>).</p>`
+        }
+
+        creditsText.html(creditText);
+        creditModal.show()
+
+    });
 });
