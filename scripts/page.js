@@ -36,16 +36,17 @@ const projects = async () => {
                             </div>
                         </div>`;
     }
-    projectsDiv.html(`<h1 class="w-100 text-center border-bottom border-light text-white">Projects</h1>`);
+    projectsDiv.html(`<h1 class="w-100 text-center border-bottom border-top border-light text-white">Projects</h1>`);
     projectsDiv.append(projectCards);
 }
 
-const overflow = () => {
-    content.css('overflow-y', 'auto');
-}
-
 const displayContent = () => {
+    let navbar = document.getElementById('nav');
+    let footer = document.getElementById('footer');
+    content.css('top', `${navbar.offsetHeight}px`);
+    content.css('height', `${window.innerHeight - (navbar.offsetHeight + footer.offsetHeight)}px`);
     about();
     projects();
-    overflow();
+    content.css('overflow-y', 'auto');
+
 }

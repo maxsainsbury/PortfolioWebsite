@@ -14,6 +14,7 @@ html, body {
     height: auto;
     font-family: "Geist Mono", sans-serif;
     overflow-y: hidden;
+    font-size: 1.5em;
 }
 
 h1 {
@@ -23,6 +24,8 @@ h1 {
 
 nav {
     z-index: 5;
+    position: fixed !important;
+    width: 100%;
 }
 
 nav a {
@@ -57,18 +60,16 @@ canvas {
 
 #credits-btn {
     position: absolute;
-    bottom: 5em;
-    left: 1em;
-    z-index: 3;
+    bottom: 5.5em;
+    left: 0.5em;
+    z-index: 2;
     opacity: 0.5;
 }
 
 #content {
-    height: 87vh;
     display: none;
-    position: relative;
+    position: absolute;
     z-index: 3;
-    top: 0;
     left: 0;
     scroll-behavior: smooth;
 }
@@ -96,8 +97,9 @@ canvas {
     object-fit: cover;
 }
 
-#projects {
-
+#projects h1 {
+    height: 3em;
+    padding: 1em 0;
 }
 
 #credits {
@@ -117,6 +119,7 @@ canvas {
 
 footer {
     width: 100%;
+    height: 2em;
     display: flex;
     justify-content: center;
     position: absolute;
@@ -126,8 +129,8 @@ footer {
 }
 
 footer a {
-    margin: 0.5em;
-    padding: 0.3em 0.7em;
+    margin: 0.3em;
+    padding: 0.2em 0.5em;
     border: 2px transparent solid;
     border-radius: 5px;
 }
@@ -141,14 +144,18 @@ footer a:hover > .bi {
 }
 
 footer .bi {
-    font-size: 1.5em;
     cursor: pointer;
 }
 
 @media only screen and (min-device-width: 768px) {
     html {
-        font-size: 1.5em;
+        font-size: 1em;
     }
+
+    #credits-btn {
+        bottom: 6em;
+    }
+
     #about {
         height: 100%;
     }
@@ -169,18 +176,51 @@ footer .bi {
         width: 50%;
         height: 100%;
     }
+
+    #credits-modal {
+        font-size: 0.7em;
+    }
+
+    footer {
+        height: 3.5em;
+    }
+
+    footer a {
+        margin: 0.5em;
+        padding: 1em 0.7em;
+    }
+
+    footer i {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (min-device-width: 992px) {
+    .navbar-nav {
+        position: absolute;
+        right: 0;
+    }
 }
 
 @media only screen and (min-device-width: 1200px) {
     html {
-        font-size: 1em;
+        font-size: 0.75em;
     }
+
+    #credits-btn {
+        bottom: 6em;
+    }
+
+    #about-photo {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
     #projects {
-        padding-top: 1em;
+        height: 100%;
     }
 
-    #content {
-        height: 83.5vh;
+    #credits-modal {
+        font-size: 0.9em;
     }
-
 }
