@@ -167,7 +167,7 @@ export const zoomIn = () => {
     const rotationXEnd = 0;
     const chairXEnd = 0;
     const chairRotEnd = -Math.PI;
-    const fovEnd = 90;
+    displayContent();
     if (!lock) {
         lock = true;
         gsap.to(chair.position, {x: chairXEnd, duration: animTime});
