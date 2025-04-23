@@ -257,5 +257,5 @@ creditsBtn.on('click', async (event) => {
 
 })
 $(() => {
-    window.scroll(0, 0);
+    window.scroll(0, 1);
 });
