@@ -33,7 +33,7 @@ nav a {
 
 #hero {
     width: 100%;
-    min-height: 100svh;
+    min-height: 100dvh;
 }
 
 canvas {
@@ -82,12 +82,11 @@ canvas {
 }
 
 #about-text {
-    height: 70%;
+    height: 65%;
 }
 
 #about-image {
-    height: 30%;
-    padding: 1em 0;
+    height: 35%;
 }
 
 #about-photo {
@@ -167,7 +166,7 @@ footer .bi {
         order: 0;
         width: 50%;
         height: 100%;
-        padding: 0;
+        padding: 1em;
     }
 
     #about-text {
