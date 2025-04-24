@@ -27,6 +27,10 @@ nav {
     width: 100%;
 }
 
+.navbar-brand {
+    cursor: default;
+}
+
 nav a {
     cursor: pointer;
 }
@@ -196,10 +200,6 @@ footer .bi {
     #about-photo {
         max-width: 90%;
         max-height: 90%;
-    }
-
-    #projects {
-        height: 100%;
     }
 
     #credits-modal {

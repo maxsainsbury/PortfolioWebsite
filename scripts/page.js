@@ -23,7 +23,7 @@ const projects = async () => {
         let { name, description, image, link } = projects[i];
 
         projectCards += `
-                        <div class="col-12 col-md-6 col-xl-4 mt-3">
+                        <div class="col-12 col-md-6 col-xl-4 mb-3">
                             <div class="card w-100">
                               <div class="card-header">
                                 ${name}
@@ -36,8 +36,10 @@ const projects = async () => {
                             </div>
                         </div>`;
     }
-    projectsDiv.html(`<h1 class="w-100 text-center border-bottom border-top border-light text-white">Projects</h1>`);
-    projectsDiv.append(projectCards);
+    projectsDiv.html(`
+                                      <h1 class="w-100 mb-4 text-center border-bottom border-top border-light text-white">Projects</h1>
+                                      <div class="row" id="card-box"></div>`);
+    $('#card-box').html(projectCards);
 }
 
 const displayContent = () => {

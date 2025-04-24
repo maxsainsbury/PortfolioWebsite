@@ -1,29 +1,40 @@
 {
   "credits": [
     {
-      "credit": "\"Computer Desk\" (https://skfb.ly/oAxYs) by clon6767 is licensed under Creative Commons Attribution",
-      "link": "http://creativecommons.org/licenses/by/4.0/"
+      "name": "Computer Desk",
+      "credit": "by clon6767 is licensed under Creative Commons Attribution",
+      "link": "https://skfb.ly/oAxYs",
+      "attribution": "http://creativecommons.org/licenses/by/4.0/"
     },
     {
-      "credit": "\"Ncase M1\" (https://skfb.ly/6SvRO) by Vivien Deroche is licensed under Creative Commons Attribution",
-      "link": "http://creativecommons.org/licenses/by/4.0/"
+      "name": "Ncase M1",
+      "credit": "by Vivien Deroche is licensed under Creative Commons Attribution",
+      "link": "https://skfb.ly/6SvRO",
+      "attribution": "http://creativecommons.org/licenses/by/4.0/"
     },
     {
-      "credit": "\"computer monitor\" (https://skfb.ly/oq8oL) by GreenFreeze is licensed under Creative Commons Attribution",
-      "link": "http://creativecommons.org/licenses/by/4.0/"
+      "name": "computer monitor",
+      "credit": "by GreenFreeze is licensed under Creative Commons Attribution",
+      "link": "https://skfb.ly/oq8oL",
+      "attribution": "http://creativecommons.org/licenses/by/4.0/"
     },
     {
-      "credit": "\"Desk chair\" (https://skfb.ly/6sPpy) by leonvdberg is licensed under Creative Commons Attribution",
-      "link": "http://creativecommons.org/licenses/by/4.0/"
+      "name": "Desk chair",
+      "credit": "by leonvdberg is licensed under Creative Commons Attribution",
+      "link": "https://skfb.ly/6sPpy",
+      "attribution": "http://creativecommons.org/licenses/by/4.0/"
     },
     {
-      "credit": "\"keyboard\" (https://skfb.ly/6UFI8) by 45P3R4 is licensed under Creative Commons Attribution",
+      "name": "keyboard",
+      "credit": "by 45P3R4 is licensed under Creative Commons Attribution",
       "link": "https://skfb.ly/6UFI8",
       "attribution": "http://creativecommons.org/licenses/by/4.0/"
     },
     {
-      "credit": "\"Computer Mouse (low-poly)\" (https://skfb.ly/oWQYs) by LagzDesign is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).",
-      "link": "https://skfb.ly/oWQYs"
+      "name": "Computer Mouse (low-poly)",
+      "credit": "by LagzDesign is licensed under Creative Commons Attribution",
+      "link": "https://skfb.ly/oWQYs",
+      "attribution" : "http://creativecommons.org/licenses/by/4.0/"
     }
   ]
 }

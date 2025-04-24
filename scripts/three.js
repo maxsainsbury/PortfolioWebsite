@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
+import { setActive } from "./nav.js";
 
 const container = $('#hero');
 const contentDiv = $('#content');
@@ -16,24 +16,22 @@ let fov;
 const white = new THREE.MeshStandardMaterial( { color: 0xffffff } );
 const gray = new THREE.MeshStandardMaterial( { color: 0x808080 } );
 const black = new THREE.MeshStandardMaterial({ color: 0x000000 } );
+const emissiveGreen = new THREE.MeshStandardMaterial( { color: 0x00ff00, emissive: 0x00ff00 } );
+const emissiveRed = new THREE.MeshStandardMaterial( { color: 0xff0000, emissive: 0xff0000 } );
+const emissiveWhite = new THREE.MeshStandardMaterial( { color: 0xffffff, emissive: 0xffffff } );
 const screenImage = new THREE.TextureLoader().load( "../public/images/full-screen-portfolio.png" );
 screenImage.repeat.set(1,1);
+screenImage.colorSpace = THREE.SRGBColorSpace;
 const screenMaterial = new THREE.MeshBasicMaterial( { color: 0xeeeeee, map: screenImage } );
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2(-1,-1);
 const pointerChange = new THREE.Vector2(-1,-1);
 const powerLightRed = new THREE.PointLight( 0xff0000, 0.08, 0.05 );
 const powerLightGreen = new THREE.PointLight( 0x00ff00, 0, 0.05 );
-const emissiveGreen = new THREE.MeshStandardMaterial( { color: 0x00ff00, emissive: 0x00ff00 } );
-const emissiveRed = new THREE.MeshStandardMaterial( { color: 0xff0000, emissive: 0xff0000 } );
-const emissiveWhite = new THREE.MeshStandardMaterial( { color: 0xffffff, emissive: 0xffffff } );
 
 const screenLight = new THREE.RectAreaLight( 0xffffff, 0,  0.71, 0.36 );
 screenLight.position.set(0, 1.06, 0.001);
 screenLight.rotation.set(0, Math.PI, 0);
-
-
-
 let textMesh;
 let chair;
 let monitor;
@@ -41,7 +39,7 @@ let computer;
 let lock = false;
 let waitCount = 0;
 let touchStart = 0;
-const animTime = 1.2;
+const animTime = 1.5;
 
 const calcFov = () => {
     if (aspect < 0.5) {
@@ -77,7 +75,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
 container.append( renderer.domElement );
 
-const geometry = new THREE.PlaneGeometry( 0.67, 0.36 );
+const geometry = new THREE.PlaneGeometry( 0.67, 0.366 );
 const screen = new THREE.Mesh( geometry, black );
 screen.position.set(0,1.065,0);
 screen.name = 'screen';
@@ -161,9 +159,6 @@ const loadFiles = () => {
         monitor = gltf.scene;
         monitor.position.set(0, 0.74, 0);
         monitor.scale.set(0.1, 0.1, 0.1);
-        monitor.traverse((o) => {
-            //if (o.isMesh) o.material = white;
-        });
         scene.add(monitor);
 
     });
@@ -172,9 +167,6 @@ const loadFiles = () => {
         computer = gltf.scene;
         computer.position.set(-0.68, 0.90, 0.2);
         computer.scale.set(0.15, 0.15, 0.15);
-        computer.traverse((o) => {
-            //if (o.isMesh) o.material = white;
-        });
         buttonGroup.position.set(-0.679, 0.7705, 0.34);
         buttonGroup.rotation.x = 1.57;
         computer.name = 'computer';
@@ -279,24 +271,22 @@ const resizeContainer = () => {
 }
 
 export const zoomIn = () => {
-    const cameraZEnd = 0.281;
-    const cameraYEnd = 1.058;
+    const cameraZEnd = 0.29;
+    const cameraYEnd = 1.05;
     const rotationXEnd = 0;
     const chairXEnd = 0;
     const chairRotEnd = -0.85;
     displayContent();
     if (!lock) {
+        setActive(1);
         lock = true;
-        if(powerButton.material === emissiveGreen) {
-            screen.material = black;
-            screenLight.intensity = 0;
-        }
         gsap.to(chairGroup.position, {x: chairXEnd, duration: animTime});
         gsap.to(chairGroup.rotation, {y:chairRotEnd, duration: animTime});
         gsap.to(camera.position, {z: cameraZEnd, y: cameraYEnd, duration: animTime});
         gsap.to(camera.rotation, {
             x: rotationXEnd, duration: animTime, onComplete: () => {
-                contentDiv.fadeIn(1000, () => {
+                let fade = (powerButton.material === emissiveRed) ? 800 : 100;
+                contentDiv.fadeIn(fade, () => {
                     lock = false;
                 });
             }
@@ -315,22 +305,20 @@ export const zoomOut = (override = 0) => {
     const chairRotStart = 0;
     if(!lock) {
         waitCount++;
-        if(waitCount >= 10) {
+        if(waitCount >= 6) {
+            setActive(0);
             waitCount = 0;
             lock = true;
+            let fade = (powerButton.material === emissiveRed) ? 800 : 100;
             if (contentDiv.css('display') === 'block') {
-                contentDiv.fadeOut(800);
+                contentDiv.fadeOut(fade);
             }
             gsap.to(camera.position, {
-                duration: 0.8, onComplete: () => {
+                duration: (fade / 1000), onComplete: () => {
                     gsap.to(chairGroup.position, {x: chairXStart, ease: "power2.out", duration: animTime});
                     gsap.to(chairGroup.rotation, {y: chairRotStart, ease: "power2.out", duration: animTime});
                     gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: animTime});
                     gsap.to(camera.rotation, {x: rotationXStart, duration: animTime, onComplete: () => {
-                        if(powerButton.material === emissiveGreen) {
-                            screen.material = screenMaterial;
-                            screenLight.intensity = 2;
-                        }
                         lock = false;
                     }});
                 }
@@ -421,8 +409,8 @@ $(() => {
         let creditText = ``;
 
         for(let i = 0; i < credits.length; i++){
-            let { credit, link } = credits[i];
-            creditText += `<p class="text-white credit">${credit} (<a class="link-secondary link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="${link}">${link}</a>).</p>`
+            let { credit, link, name, attribution } = credits[i];
+            creditText += `<p class="text-white credit">"${name}" (<a class="link-secondary link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="${link}">${link}</a>) ${credit} (<a class="link-secondary link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="${attribution}">${attribution}</a>).</p>`
         }
 
         creditsText.html(creditText);
