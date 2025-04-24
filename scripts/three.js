@@ -15,6 +15,10 @@ let aspect = width / height;
 let fov;
 const white = new THREE.MeshStandardMaterial( { color: 0xffffff } );
 const gray = new THREE.MeshStandardMaterial( { color: 0x808080 } );
+const black = new THREE.MeshStandardMaterial({ color: 0x000000 } );
+const screenImage = new THREE.TextureLoader().load( "../public/images/full-screen-portfolio.png" );
+screenImage.repeat.set(1,1);
+const screenMaterial = new THREE.MeshBasicMaterial( { color: 0xeeeeee, map: screenImage } );
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2(-1,-1);
 const pointerChange = new THREE.Vector2(-1,-1);
@@ -74,9 +78,8 @@ renderer.setSize( width, height );
 container.append( renderer.domElement );
 
 const geometry = new THREE.PlaneGeometry( 0.67, 0.36 );
-const material = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.DoubleSide} );
-const screen = new THREE.Mesh( geometry, material );
-screen.position.set(0,1.06,0);
+const screen = new THREE.Mesh( geometry, black );
+screen.position.set(0,1.065,0);
 screen.name = 'screen';
 scene.add( screen );
 
@@ -276,8 +279,8 @@ const resizeContainer = () => {
 }
 
 export const zoomIn = () => {
-    const cameraZEnd = 0.25;
-    const cameraYEnd = 1.053;
+    const cameraZEnd = 0.281;
+    const cameraYEnd = 1.058;
     const rotationXEnd = 0;
     const chairXEnd = 0;
     const chairRotEnd = -0.85;
@@ -285,7 +288,7 @@ export const zoomIn = () => {
     if (!lock) {
         lock = true;
         if(powerButton.material === emissiveGreen) {
-            scene.remove(textMesh);
+            screen.material = black;
             screenLight.intensity = 0;
         }
         gsap.to(chairGroup.position, {x: chairXEnd, duration: animTime});
@@ -325,7 +328,7 @@ export const zoomOut = (override = 0) => {
                     gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: animTime});
                     gsap.to(camera.rotation, {x: rotationXStart, duration: animTime, onComplete: () => {
                         if(powerButton.material === emissiveGreen) {
-                            scene.add(textMesh);
+                            screen.material = screenMaterial;
                             screenLight.intensity = 2;
                         }
                         lock = false;
@@ -365,14 +368,14 @@ const changeButton = () => {
         powerLightRed.intensity = 0;
         powerLightGreen.intensity = 0.08;
         powerButton.material = emissiveGreen;
-        scene.add(textMesh);
+        screen.material = screenMaterial;
         screenLight.intensity = 2;
     }
     else {
         powerLightRed.intensity = 0.08;
         powerLightGreen.intensity = 0;
         powerButton.material = emissiveRed;
-        scene.remove(textMesh);
+        screen.material = black;
         screenLight.intensity = 0;
     }
 }
