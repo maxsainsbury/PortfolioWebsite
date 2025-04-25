@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added changing nav active based on screen position and tweeked the zoom in function">
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="fixed minor issues with the nav bar active item selection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/nav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/three.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/three.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +119,7 @@
       <workItem from="1745471469823" duration="1506000" />
       <workItem from="1745477024287" duration="5534000" />
       <workItem from="1745520625000" duration="1296000" />
-      <workItem from="1745612543174" duration="1778000" />
+      <workItem from="1745612543174" duration="1923000" />
     </task>
     <task id="LOCAL-00001" summary="Built basic structure of files and basic html structure">
       <option name="closed" value="true" />
@@ -282,7 +281,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745543883729</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="fixed minor issues with the nav bar active item selection">
+      <option name="closed" value="true" />
+      <created>1745614402571</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1745614402571</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,6 +317,7 @@
     <MESSAGE value="update workspace.xml" />
     <MESSAGE value="changes to workspace.xml" />
     <MESSAGE value="added changing nav active based on screen position and tweeked the zoom in function" />
-    <option name="LAST_COMMIT_MESSAGE" value="added changing nav active based on screen position and tweeked the zoom in function" />
+    <MESSAGE value="fixed minor issues with the nav bar active item selection" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed minor issues with the nav bar active item selection" />
   </component>
 </project>

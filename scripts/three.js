@@ -13,9 +13,7 @@ let width = container.width();
 let height = container.height();
 let aspect = width / height;
 let fov;
-const white = new THREE.MeshStandardMaterial( { color: 0xffffff } );
 const gray = new THREE.MeshStandardMaterial( { color: 0x808080 } );
-const black = new THREE.MeshStandardMaterial({ color: 0x000000 } );
 const emissiveGreen = new THREE.MeshStandardMaterial( { color: 0x00ff00, emissive: 0x00ff00 } );
 const emissiveRed = new THREE.MeshStandardMaterial( { color: 0xff0000, emissive: 0xff0000 } );
 const emissiveWhite = new THREE.MeshStandardMaterial( { color: 0xffffff, emissive: 0xffffff } );
@@ -400,7 +398,7 @@ $(() => {
     window.addEventListener('mousemove', changePointer);
     window.addEventListener( 'click', selectModel );
 
-    creditsBtn.on('click', async (event) => {
+    creditsBtn.on('click', async () => {
         let response = await fetch('../public/data/credits.json');
         let data = await response.json();
         let { credits } = data;

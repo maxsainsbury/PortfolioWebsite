@@ -18,21 +18,21 @@ export const setActive = (selected) => {
     });
 }
 
-navHome.on('click', (e) => {
+navHome.on('click', () => {
     content.scrollTop(0);
     if(content.css('display') === 'block'){
         zoomOut(10)
     }
 });
 
-navAbout.on('click', (e) => {
+navAbout.on('click', () => {
     if(content.css('display') === 'none'){
         zoomIn();
     }
     content.scrollTop(0);
 })
 
-navProjects.on('click', (e) => {
+navProjects.on('click', () => {
     clearTimeout(scrollTimeout);
     if(content.css('display') === 'none'){
         zoomIn();
@@ -46,7 +46,7 @@ navProjects.on('click', (e) => {
     }
 });
 
-content.on('scroll', (e) => {
+content.on('scroll', () => {
     if(!tick) {
         clearTimeout(tickTimeout);
         tick = true;
