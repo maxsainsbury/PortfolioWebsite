@@ -412,5 +412,8 @@ $(() => {
         creditsText.html(creditText);
         creditModal.show()
 
+        renderer.setSize(0, height);
+        renderer.setSize(width, height);
+
     });
 });
