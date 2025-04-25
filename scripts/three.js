@@ -413,4 +413,6 @@ $(() => {
         creditModal.show()
 
     });
+
+    container.hide().show(0);
 });
