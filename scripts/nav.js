@@ -19,7 +19,6 @@ export const setActive = (selected) => {
 }
 
 navHome.on('click', (e) => {
-    setActive(0);
     content.scrollTop(0);
     if(content.css('display') === 'block'){
         zoomOut(10)
@@ -27,7 +26,6 @@ navHome.on('click', (e) => {
 });
 
 navAbout.on('click', (e) => {
-    setActive(1);
     if(content.css('display') === 'none'){
         zoomIn();
     }
@@ -35,7 +33,6 @@ navAbout.on('click', (e) => {
 })
 
 navProjects.on('click', (e) => {
-    setActive(2);
     clearTimeout(scrollTimeout);
     if(content.css('display') === 'none'){
         zoomIn();

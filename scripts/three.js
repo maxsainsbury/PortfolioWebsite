@@ -22,7 +22,7 @@ const emissiveWhite = new THREE.MeshStandardMaterial( { color: 0xffffff, emissiv
 const screenImage = new THREE.TextureLoader().load( "../public/images/full-screen-portfolio.png" );
 screenImage.repeat.set(1,1);
 screenImage.colorSpace = THREE.SRGBColorSpace;
-const screenMaterial = new THREE.MeshBasicMaterial( { color: 0xeeeeee, map: screenImage } );
+const screenMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, map: screenImage } );
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2(-1,-1);
 const pointerChange = new THREE.Vector2(-1,-1);
@@ -76,7 +76,7 @@ renderer.setSize( width, height );
 container.append( renderer.domElement );
 
 const geometry = new THREE.PlaneGeometry( 0.67, 0.366 );
-const screen = new THREE.Mesh( geometry, black );
+const screen = new THREE.Mesh( geometry, screenMaterial );
 screen.position.set(0,1.065,0);
 screen.name = 'screen';
 scene.add( screen );
@@ -99,9 +99,6 @@ manager.onLoad = function ( ) {
     camera.rotation.x = -0.3;
     renderer.setAnimationLoop( animate );
     scene.updateMatrixWorld();
-
-    window.addEventListener('mousemove', changePointer);
-    window.addEventListener( 'click', selectModel );
 
     window.requestAnimationFrame( animate );
     displayContent();
@@ -258,7 +255,7 @@ function animate() {
     render();
 }
 
-const resizeContainer = () => {
+export const resizeContainer = () => {
     width = container.width();
     height = container.height();
     aspect = width / height;
@@ -306,12 +303,12 @@ export const zoomOut = (override = 0) => {
     if(!lock) {
         waitCount++;
         if(waitCount >= 6) {
-            setActive(0);
             waitCount = 0;
             lock = true;
             let fade = (powerButton.material === emissiveRed) ? 800 : 100;
             if (contentDiv.css('display') === 'block') {
                 contentDiv.fadeOut(fade);
+                setActive(0);
             }
             gsap.to(camera.position, {
                 duration: (fade / 1000), onComplete: () => {
@@ -356,14 +353,14 @@ const changeButton = () => {
         powerLightRed.intensity = 0;
         powerLightGreen.intensity = 0.08;
         powerButton.material = emissiveGreen;
-        screen.material = screenMaterial;
+        screen.material.color.set(0xeeeeee);
         screenLight.intensity = 2;
     }
     else {
         powerLightRed.intensity = 0.08;
         powerLightGreen.intensity = 0;
         powerButton.material = emissiveRed;
-        screen.material = black;
+        screen.material.color.set(0x000000);
         screenLight.intensity = 0;
     }
 }
@@ -399,6 +396,9 @@ $(() => {
             zoomOut();
         }
     });
+
+    window.addEventListener('mousemove', changePointer);
+    window.addEventListener( 'click', selectModel );
 
     creditsBtn.on('click', async (event) => {
         let response = await fetch('../public/data/credits.json');

@@ -52,3 +52,7 @@ const displayContent = () => {
     content.css('overflow-y', 'auto');
 
 }
+
+window.addEventListener('resize', () => {
+    displayContent();
+})
