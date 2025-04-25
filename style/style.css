@@ -129,7 +129,7 @@ footer {
     display: flex;
     justify-content: center;
     position: absolute;
-    bottom: 0;
+    bottom: calc(100vh - 100%);
     left: 0;
     z-index: 3;
 }
