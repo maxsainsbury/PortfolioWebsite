@@ -4,7 +4,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { setActive } from "./nav.js";
 
-const container = $('#hero');
+const container = $('#container');
 const contentDiv = $('#content');
 const creditsBtn = $('#credits-btn');
 const creditModal = new bootstrap.Modal(document.getElementById('credits-modal'), {});
@@ -306,10 +306,10 @@ export const zoomOut = (override = 0) => {
             let fade = (powerButton.material === emissiveRed) ? 800 : 100;
             if (contentDiv.css('display') === 'block') {
                 contentDiv.fadeOut(fade);
-                setActive(0);
             }
             gsap.to(camera.position, {
                 duration: (fade / 1000), onComplete: () => {
+                    setActive(0);
                     gsap.to(chairGroup.position, {x: chairXStart, ease: "power2.out", duration: animTime});
                     gsap.to(chairGroup.rotation, {y: chairRotStart, ease: "power2.out", duration: animTime});
                     gsap.to(camera.position, {z: cameraZStart, y: cameraYStart, duration: animTime});
@@ -413,6 +413,4 @@ $(() => {
         creditModal.show()
 
     });
-
-    container.hide().show(0);
 });
