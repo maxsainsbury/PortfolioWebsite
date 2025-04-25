@@ -372,8 +372,6 @@ const changeButton = () => {
 $(() => {
     loadFiles();
 
-    window.scroll(0, 1);
-
     window.addEventListener("resize", resizeContainer);
 
     addEventListener('touchstart', (event) => {

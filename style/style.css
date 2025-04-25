@@ -37,7 +37,7 @@ nav a {
 
 #hero {
     width: 100%;
-    min-height: 100dvh;
+    min-height: 100svh;
 }
 
 canvas {
@@ -102,6 +102,10 @@ canvas {
 #projects h1 {
     height: 3em;
     padding: 1em 0;
+}
+
+.project-col {
+    justify-content: center;
 }
 
 #credits {

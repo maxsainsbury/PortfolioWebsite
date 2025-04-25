@@ -23,7 +23,7 @@ const projects = async () => {
         let { name, description, image, link } = projects[i];
 
         projectCards += `
-                        <div class="col-12 col-md-6 col-xl-4 mb-3">
+                        <div class="project-col col-12 col-md-6 col-xl-4 mb-3">
                             <div class="card w-100">
                               <div class="card-header">
                                 ${name}
