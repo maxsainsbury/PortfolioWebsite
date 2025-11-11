@@ -75,6 +75,8 @@ canvas {
     z-index: 3;
     left: 0;
     scroll-behavior: smooth;
+    scrollbar-color: gray black;
+    scrollbar-width: thin;
 }
 
 #about {

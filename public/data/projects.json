@@ -11,6 +11,12 @@
       "image": "./public/images/portfolio.png",
       "description": "My portfolio website, made with HTML, CSS, and JavaScript. Using Three.js, jQuery, and Gsap",
       "link": "https://github.com/maxsainsbury/PortfolioWebsite"
+    },
+    {
+      "name" : "WebPOS",
+      "image" : "./public/images/webpos.png",
+      "description": "[WORK IN PROGRESS] A point of sales system built for a pizza place made using a React frontend and a ExpressJS backend",
+      "link": "https://github.com/maxsainsbury/webPOS"
     }
   ]
 }

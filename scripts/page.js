@@ -5,8 +5,8 @@ const projectsDiv = $('#projects');
 const about = () => {
     aboutDiv.html(`
                                    <div class="about-col col-12 col-md-6 d-flex flex-column justify-content-center align-items-center" id="about-text">
-                                     <h3>About Title</h3>
-                                     <p>about text</p>
+                                     <h3>Hi, I'm Max</h3>
+                                     <p>I'm a new developer just starting out. I have been programming on and off since 2012 for both fun and with the hope to work in the field. My main focus has been in web development throughout the years.</p>
                                    </div>
                                    <div class="about-col col-12 col-md-6 d-flex justify-content-center align-items-center" id="about-image">
                                      <img class="border rounded-circle" src="./public/images/max.jpg" alt="Photo of Max Sainsbury" id="about-photo">
