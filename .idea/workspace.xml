@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="added an about section to the website">
-      <change beforePath="$PROJECT_DIR$/scripts/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/page.js" afterDir="false" />
+    <list default="true" id="cdc20d28-af6a-4f85-bb18-b2af6937ea6f" name="Changes" comment="fixed minor error with relative link to about image">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +121,7 @@
       <workItem from="1745612543174" duration="1923000" />
       <workItem from="1745885942910" duration="404000" />
       <workItem from="1759417470521" duration="322000" />
-      <workItem from="1762882338668" duration="2530000" />
+      <workItem from="1762882338668" duration="3198000" />
     </task>
     <task id="LOCAL-00001" summary="Built basic structure of files and basic html structure">
       <option name="closed" value="true" />
@@ -346,14 +347,21 @@
       <option name="project" value="LOCAL" />
       <updated>1762884851754</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fixed minor error with relative link to about image">
+      <option name="closed" value="true" />
+      <created>1762884951969</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1762884951969</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added a portfolio section to the page" />
     <MESSAGE value="\updated workspace" />
     <MESSAGE value="setup credits section and fixed scrolling animations" />
     <MESSAGE value="changed wait time for going back to 3d scene" />
@@ -378,6 +386,7 @@
     <MESSAGE value="changed footer position back" />
     <MESSAGE value="attempting to fix display on mobile" />
     <MESSAGE value="added an about section to the website" />
-    <option name="LAST_COMMIT_MESSAGE" value="added an about section to the website" />
+    <MESSAGE value="fixed minor error with relative link to about image" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed minor error with relative link to about image" />
   </component>
 </project>
