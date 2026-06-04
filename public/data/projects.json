@@ -17,6 +17,10 @@
       "image" : "./public/images/webpos.png",
       "description": "[WORK IN PROGRESS] A point of sales system built for a pizza place made using a React frontend and a ExpressJS backend",
       "link": "https://github.com/maxsainsbury/webPOS"
+    },
+    {
+      "name": "Home Server and VPS setup",
+      "description": "Setup a home server and a vps, home server hosts a bunch of services like cloud storage and image backup, vps hosts my portfolio website and a bridge to the internet for the services on my home server i want access to outside of my home network"
     }
   ]
 }
